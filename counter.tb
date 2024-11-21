@@ -1,0 +1,25 @@
+`timescale 1ns / 1ps
+
+module counter_tb;
+reg clk;
+reg reset;
+wire [3:0]q;
+counter dut(.clk(clk), 
+            .reset(reset),
+             .q(q));
+always begin
+    #10 clk = ~clk;  
+end
+initial begin
+    clk = 0;
+    reset = 0;
+    reset = 1;
+    #20 reset = 0;  
+    #200;
+    $finish;
+end
+initial begin
+    $monitor("At time %0t, q = %b", $time, q);
+end
+
+endmodule
